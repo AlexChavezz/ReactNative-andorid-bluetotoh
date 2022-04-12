@@ -1,25 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import 'react-native-gesture-handler';
 
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { StackNavigation } from './src/Navigations/StackNavigation';
 
 const App = () => {
   return (
-    <View
-      style={styles.container}
-    >
-    <Text style={{color:"white"}}>
-      android
-    </Text>
-    </View>
-  );
+    <NavigationContainer>
+      <StackNavigation />
+    </NavigationContainer>
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#181818',
-  }
-})
-
 
 export default App;
