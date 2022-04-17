@@ -1,51 +1,48 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useNavigation, useNavigationState } from '@react-navigation/native';
-import { View, Text, StyleSheet, NativeModules, NativeEventEmitter } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { ToggleButtonBluetooth } from '../components/ToggleButtonBluetooth';
 import BluetoothSerial, { read } from 'react-native-bluetooth-serial-next';
 import { Item } from '../components/ItemList';
 import { useDevices } from '../hooks/useDevices';
-import { ConectedContext } from '../context/ConectedContext';
-// import BleManager from 'react-native-ble-manager';
+import { DeviceList } from '../components/DeviceList';
 
-// const BleManagerModule = NativeModules.BleManager;
-// const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
-export const HomeScreen = ({ navigation }) => {
+import { LogBox } from 'react-native';
+import { StatusContext } from '../context/StatusContext';
+
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
+]);
+
+export const HomeScreen = () => {
 
     const navigator = useNavigation();
 
-    const [isBluetoothEnable, setIsBluetoothenable] = useState(false);
+    const [isBluetoothEnable, setIsBluetoothEnable] = useState(false);
     const [pairedDevices, getDevices, clearPairedDevices] = useDevices();
-    const { isConnected, setIsConnected } = useContext(ConectedContext);
+    const { setIsConnected, setDeviceConnected } = useContext(StatusContext);
     useEffect(() => {
         BluetoothSerial.isEnabled()
             .then(res => {
-                setIsBluetoothenable(res)
+                setIsBluetoothEnable(res)
                 getDevices();
             });
     }, [])
-    // useEffect(() => {
-    //     window.setInterval(() => {
-    //         BluetoothSerial.readFromDevice()
-    //         .then( console.log )
-            
-    //     }, 1000)
-    // }, [])
 
     async function activeBluetoothRequest() {
         try {
             const response = await BluetoothSerial.requestEnable();
-            if (response) setIsBluetoothenable(response);
+            if (response) setIsBluetoothEnable(response);
             getDevices();
         } catch (error) {
-            if (error) setIsBluetoothenable(false);
+            if (error) setIsBluetoothEnable(false);
         }
 
     }
     async function turnOffBluetooth() {
         const response = await BluetoothSerial.disable();
-        if (response) setIsBluetoothenable(false); clearPairedDevices();
+        if (response) setIsBluetoothEnable(false); clearPairedDevices();
+        setIsConnected(false);
     }
     async function getDevicesNew() {
         const devices = await BluetoothSerial.discoverUnpairedDevices();
@@ -58,85 +55,34 @@ export const HomeScreen = ({ navigation }) => {
     function writeSomething(letter: string) {
         BluetoothSerial.write(letter).then(console.log).catch(e => console.log("error"))
     }
-    async function readSomething() {
-        window.setInterval(() => {
-            BluetoothSerial.readFromDevice()
-            .then(response => {
-                if( response === 'L'){
-                    navigator.navigate("Page2Screen", {name:"alexis chavez"})
-                }
-            })
-            
-        }, 1500)
-    }
-    const names = ["alexis", "diego", "melissa"];
+    // async function readSomething() {
+    //     window.setInterval(() => {
+    //         BluetoothSerial.readFromDevice()
+    //             .then(response => {
+    //                 if (response === 'L') {
+    //                     navigator.navigate("Page2Screen", { name: "alexis chavez" })
+    //                 }
+    //             })
+
+    //     }, 1500)
+    // }
+    const names = ["alexis", "diego", "melissa", "jose", "pedro", "maria", "rita", "david", "jesus", "Lucia", "Andrea", " Eduardo", "Galileo", "Elias"];
     return (
         <View
             style={styles.container}
         >
-            <View
-                style={isConnected ? styles.connected : styles.discconected}
-            >
-                {
-                    isConnected ?
-                        <Text
-                            style={styles.statusText}
-                        >Conectado</Text>
-                        :
-                        <Text
-                            style={styles.statusText}
-                        >Desconectado</Text>
-                }
-            </View>
+            <ToggleButtonBluetooth
+                title={isBluetoothEnable ? "APAGAR" : "ENCENDER"}
+                onPress={isBluetoothEnable ? turnOffBluetooth : activeBluetoothRequest}
+                buttonStyle={styles.toggleButton}
+                textStyle={styles.toggleButtonText}
+            />
             {
-                !isBluetoothEnable ?
-                    (
-                        <ToggleButtonBluetooth
-                            title="ON"
-                            onPress={activeBluetoothRequest}
-                            buttonStyle={styles.toggleButton}
-                            textStyle={styles.toggleButtonText}
-                        />
-                    )
-                    :
-                    (
-                        <ToggleButtonBluetooth
-                            title="OFF"
-                            onPress={turnOffBluetooth}
-                            buttonStyle={styles.toggleButton}
-                            textStyle={styles.toggleButtonText}
-                        />
-                    )
+                isBluetoothEnable &&
+                <DeviceList
+                pairedDevices={pairedDevices}
+                />
             }
-            <View>
-                {
-                    pairedDevices.map(device => <Item {...device} key={device.id} />)
-                }
-                {/* <FlatList
-                    data={pairedDevices}
-                    renderItem={Item}
-                    keyExtractor={item => item.id}
-                /> */}
-
-                <ToggleButtonBluetooth
-                    title="ON"
-                    onPress={() => writeSomething("F")}
-                    buttonStyle={styles.toggleButton}
-                    textStyle={styles.toggleButtonText}
-                />
-                <ToggleButtonBluetooth
-                    title="OFF"
-                    onPress={() => writeSomething("A")}
-                    buttonStyle={styles.toggleButton}
-                    textStyle={styles.toggleButtonText}
-                />
-                <ToggleButtonBluetooth
-                    title="Read"
-                    onPress={readSomething}
-                    buttonStyle={styles.toggleButton}
-                    textStyle={styles.toggleButtonText}
-                />
-            </View>
         </View>
     );
 }
@@ -144,7 +90,6 @@ export const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // padding: 10,
         backgroundColor: "white"
     },
     toggleButton: {
@@ -154,30 +99,11 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: "center"
+        alignSelf: "center",
+        border: "1px solid #badbcc",
+        marginVertical:20,
     },
     toggleButtonText: {
-        color: 'white'
+        color: "#fff",
     },
-    connected: {
-        height: 40,
-        backgroundColor: "#d1e7dd",
-        border: "1px solid #badbcc",
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    discconected: {
-        height: 40,
-        backgroundColor: "#f8d7da",
-        border: "1px solid #f5c2c7",
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    textConnected: {
-        color: "#0f5132",
-    },
-    textDisconnected: {
-        color: '#842029',
-    }
-
 })
