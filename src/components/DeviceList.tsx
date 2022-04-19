@@ -6,6 +6,7 @@ export const DeviceList = ({ pairedDevices }) => {
     return (
         <ScrollView>
             {
+                
                 pairedDevices.map( device =>
                     <Item
                         {...device}

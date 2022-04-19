@@ -23,7 +23,7 @@ const App = () => {
           style={isConnected ? [styles.alertIsConnected, styles.alertConnected] : [styles.alertIsConnected, styles.alertDiscconected]}
         >
           <Text>
-            {isConnected ? `Conectado a: ${  deviceConnected}` : "Desconectado"}
+            {isConnected ? `Conectado a: ${deviceConnected}` : "Desconectado"}
           </Text>
         </View>
         <StackNavigation />
@@ -34,23 +34,25 @@ const App = () => {
 
 const styles = StyleSheet.create({
   alertIsConnected: {
-      height: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: "absolute",
+    bottom: 0
   },
   alertConnected: {
-      backgroundColor: "#d1e7dd",
-      border: "1px solid #badbcc",
+    backgroundColor: "#d1e7dd",
+    border: "1px solid #badbcc",
   },
   alertDiscconected: {
-      backgroundColor: "#f8d7da",
-      border: "1px solid #f5c2c7",
+    backgroundColor: "#f8d7da",
+    border: "1px solid #f5c2c7",
   },
   textConnected: {
-      color: "#0f5132",
+    color: "#0f5132",
   },
   textDisconnected: {
-      color: '#842029',
+    color: '#842029',
   }
 
 })

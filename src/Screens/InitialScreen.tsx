@@ -1,0 +1,59 @@
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+
+export const InitialScreen = () => {
+    const navigator = useNavigation();
+    function goToNormalWay() {
+        navigator.navigate("NormalScreen");
+    }
+    function goToBluetoothWay() {
+        navigator.navigate("BluetothScreen");
+    }
+    return (
+        <View
+            style={styles.container}
+        >
+            <View
+                style={styles.welcomeContainer}
+            >
+                <Text
+                    style={styles.welcomeText}
+                >
+                    BIENVENIDO!
+                </Text>
+            </View>
+            <View>
+                <Button title="NORMAL" onPress={goToNormalWay} />
+                <Text
+                    style={styles.orText}
+                >
+                    o
+                </Text>
+                <Button title="BLUETOOTH" onPress={goToBluetoothWay}/>
+            </View>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        backgroundColor: "#fff"
+    },
+    welcomeContainer: {
+        height: 300,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    welcomeText: {
+        fontSize: 30,
+        color: 'black'
+    },
+    orText: {
+        fontSize: 20,
+        color: 'black',
+        textAlign: "center",
+    }
+})

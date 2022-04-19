@@ -1,22 +1,29 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial-next';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { StatusContext } from '../context/StatusContext';
 
-export const Item = ({ name, address, id }) => {
+export const Item = (props) => {
+    console.log(props)
     // const { name, address, id } = pro;
     const { setIsConnected, setDeviceConnected } = useContext(StatusContext);
     const navigator = useNavigation();
     async function connectTo() {
-        const res = await BluetoothSerial.connect(id);
-        console.log(res)
-        setIsConnected( true );
-        setDeviceConnected( name );
-        navigator.navigate("Page2Screen", {name:"someone"})
+        console.log(props.id)
+        try{
+            const res = await BluetoothSerial.connect(props.id);
+            console.log("respuesta" + res);
+            // if( res ){
+            //     setIsConnected( true );
+            //     setDeviceConnected( props.name );
+            //     // navigator.navigate("ListeningPage");
+            // }
+        }catch(error){
+            console.log(error);
+        }
     }
-    // console.log(props)
     return (
         <TouchableOpacity
             style={styles.button}
@@ -26,14 +33,14 @@ export const Item = ({ name, address, id }) => {
                 style={{ color: 'black', fontSize: 15 }}
             >
                 {
-                    name
+                    props.name
                 }
             </Text>
             <Text
                 style={{ fontSize: 13 }}
             >
                 {
-                    address
+                    props.address
                 }
             </Text>
         </TouchableOpacity>
