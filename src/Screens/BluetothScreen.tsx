@@ -9,6 +9,7 @@ import { LogBox } from 'react-native';
 import { StatusContext } from '../context/StatusContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { Header } from '../components/Header';
 
 // -> This ignore problem react-native-gesture-handler 
 LogBox.ignoreLogs([
@@ -55,27 +56,11 @@ export const BluetothScreen = () => {
     // function writeSomething(letter: string) {
     //     BluetoothSerial.write(letter).then(console.log).catch(e => console.log("error"))
     // }
-    function goBack(){
-        navigator.goBack();
-    }
     return (
         <View
             style={styles.container}
         >
-            <View>
-                <View
-                    style={styles.header}
-                >
-                    <TouchableOpacity
-                        onPress={goBack}
-                    >
-                        <Image
-                            source={require("../assets/back-arrow.png")}
-                            style={styles.headerArrowBack}
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
+        <Header />
             <View
                 style={styles.toggleButtonContainer}
             >

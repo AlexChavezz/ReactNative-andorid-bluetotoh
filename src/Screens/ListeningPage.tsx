@@ -5,6 +5,7 @@ import BluetoothSerial from 'react-native-bluetooth-serial-next';
 import { page2Screen as styles } from '../styles/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { Header } from '../components/Header';
 
 export const ListeningPage = () => {
     const navigator = useNavigation();
@@ -22,25 +23,11 @@ export const ListeningPage = () => {
                 })
         }, 1500)
     }
-    function goBack() {
-        navigator.goBack();
-    }
     return (
         <View
             style={styles.container}
         >
-            <View
-                style={styles.header}
-            >
-                <TouchableOpacity
-                    onPress={goBack}
-                >
-                    <Image
-                        source={require("../assets/back-arrow.png")}
-                        style={styles.headerArrowBack}
-                    />
-                </TouchableOpacity>
-            </View>
+            <Header />
             <View
                 style={styles.toggleButtonContainer}
             >

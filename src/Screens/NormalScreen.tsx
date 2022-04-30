@@ -2,29 +2,16 @@ import React, { ReactElement } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { Header } from '../components/Header';
 
 
 export const NormalScreen = () => {
     const navigator = useNavigation();
-    function goBack() {
-        navigator.goBack();
-    }
     return (
         <View
             style={styles.container}
         >
-            <View
-                style={styles.header}
-            >
-                <TouchableOpacity
-                    onPress={goBack}
-                >
-                    <Image
-                        source={require("../assets/back-arrow.png")}
-                        style={styles.headerArrowBack}
-                    />
-                </TouchableOpacity>
-            </View>
+            <Header />
             <ScrollView>
                 <View
                     style={styles.cardsContainer}
@@ -33,7 +20,7 @@ export const NormalScreen = () => {
                         style={[styles.card, { width: 260 }]}
                         activeOpacity={.7}
                     >
-                        
+
                         <Text
                             style={styles.cardText}
                         >
@@ -66,7 +53,8 @@ export const NormalScreen = () => {
                         arg={5}
                     >
                         <Image
-                            source={require("../assets/outline_question_mark_black_24dp.png")}
+                            source={require("../assets/sesion.webp")}
+                            style={styles.cardImage}
                         />
                     </Card>
                     <Card
@@ -123,10 +111,18 @@ interface CardProps {
 }
 
 const Card = ({ color, title, arg, children }: CardProps) => {
+    const navigator = useNavigation();
+    const onPress = () => {
+        navigator.navigate("InfoPage", {
+            arg,
+        })
+    }
+
     return (
         <TouchableOpacity
             style={[styles.card, { backgroundColor: color }]}
             activeOpacity={.7}
+            onPress={onPress}
         >
             {
                 children
@@ -150,7 +146,7 @@ const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "flex-end",
         position: "absolute",
-        zIndex: 2
+        zIndex: 2,
     },
     headerArrowBack: {
         width: 40,

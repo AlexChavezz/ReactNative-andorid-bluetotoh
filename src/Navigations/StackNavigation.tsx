@@ -4,6 +4,7 @@ import { BluetothScreen } from '../Screens/BluetothScreen';
 import { ListeningPage } from '../Screens/ListeningPage';
 import { InitialScreen } from '../Screens/InitialScreen';
 import { NormalScreen } from '../Screens/NormalScreen';
+import { InfoPage } from '../Screens/InfoPage';
 const Stack = createStackNavigator();
 
 export const StackNavigation = () => {
@@ -25,10 +26,11 @@ export const StackNavigation = () => {
                 // }
             }}
         >
-            <Stack.Screen name="ListeningPage" component={ ListeningPage } />
             <Stack.Screen name="InitialScreen" component={ InitialScreen } />
             <Stack.Screen name="NormalScreen" component={ NormalScreen }/>            
             <Stack.Screen name="BluetothScreen" component={ BluetothScreen } />
+            <Stack.Screen name="ListeningPage" component={ ListeningPage } />
+            <Stack.Screen name="InfoPage" component={InfoPage}/>
         </Stack.Navigator>
     );
 }
