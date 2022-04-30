@@ -21,7 +21,7 @@ export const BluetothScreen = () => {
     const { isConnected, setIsConnected } = useContext(StatusContext);
     const [pairedDevices, getDevices, clearPairedDevices] = useDevices();
     const navigator = useNavigation();
-    
+
     useEffect(() => {
         BluetoothSerial.isEnabled()
             .then(res => {
@@ -60,7 +60,7 @@ export const BluetothScreen = () => {
         <View
             style={styles.container}
         >
-        <Header />
+            <Header />
             <View
                 style={styles.toggleButtonContainer}
             >
@@ -71,19 +71,19 @@ export const BluetothScreen = () => {
                     textStyle={styles.toggleButtonText}
                 />
             </View>
-            {
-                isBluetoothEnable &&
-                <DeviceList
-                    pairedDevices={pairedDevices}
-                />
-            }
+
+            <DeviceList
+                pairedDevices={pairedDevices}
+                isBluetoothEnable={isBluetoothEnable}
+            />
+
             <View
-                style={ isConnected? [styles.footer, styles.sucessAlert]: [styles.footer, styles.deniedAlert] }
+                style={isConnected ? [styles.footer, styles.sucessAlert] : [styles.footer, styles.deniedAlert]}
             >
                 <Text
-                    style={ isConnected? styles.successAlertText : styles.deniedAlertText}
+                    style={isConnected ? styles.successAlertText : styles.deniedAlertText}
                 >
-                    {isConnected? "Conectado" : "Desconectado"}
+                    {isConnected ? "Conectado" : "Desconectado"}
                 </Text>
             </View>
         </View>

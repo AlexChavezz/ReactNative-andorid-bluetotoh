@@ -22,6 +22,7 @@ export const InitialScreen = () => {
                 >
                     BIENVENIDO!
                 </Text>
+                <Text>Modelo OSI</Text>
             </View>
             <View>
                 <Button title="NORMAL" onPress={goToNormalWay} />

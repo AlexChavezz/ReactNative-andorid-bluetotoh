@@ -15,11 +15,11 @@ export const Item = (props) => {
         try{
             const res = await BluetoothSerial.connect(props.id);
             console.log("respuesta" + res);
-            // if( res ){
-            //     setIsConnected( true );
-            //     setDeviceConnected( props.name );
-            //     // navigator.navigate("ListeningPage");
-            // }
+            if( res ){
+                setIsConnected( true );
+                setDeviceConnected( props.name );
+                navigator.navigate("ListeningPage");
+            }
         }catch(error){
             console.log(error);
         }

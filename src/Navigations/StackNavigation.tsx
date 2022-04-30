@@ -28,9 +28,9 @@ export const StackNavigation = () => {
         >
             <Stack.Screen name="InitialScreen" component={ InitialScreen } />
             <Stack.Screen name="NormalScreen" component={ NormalScreen }/>            
+            <Stack.Screen name="InfoPage" component={InfoPage}/>
             <Stack.Screen name="BluetothScreen" component={ BluetothScreen } />
             <Stack.Screen name="ListeningPage" component={ ListeningPage } />
-            <Stack.Screen name="InfoPage" component={InfoPage}/>
         </Stack.Navigator>
     );
 }
