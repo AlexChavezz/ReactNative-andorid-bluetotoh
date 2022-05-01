@@ -1,35 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View } from 'react-native';
 import { ToggleButtonBluetooth } from '../components/ToggleButtonBluetooth';
 import BluetoothSerial from 'react-native-bluetooth-serial-next';
 import { page2Screen as styles } from '../styles/styles';
+import { Capa1, Capa2, Capa3, Capa4, Capa5, Capa6, Capa7 } from '../components/capas';
 import { Header } from '../components/Header';
-import { Capa1 } from '../components/capas/Capa1';
-import { Capa2 } from '../components/capas/Capa2';
-import { Capa3 } from '../components/capas/Capa3';
-import { Capa4 } from '../components/capas/Capa4';
-import { Capa5 } from '../components/capas/Capa5';
-import { Capa6 } from '../components/capas/Capa6';
-import { Capa7 } from '../components/capas';
 
 export const ListeningPage = () => {
     const [isListenning, setIsListening] = useState(false);
     const [value, setValue] = useState<string>(null);
+    const intervalRef = useRef(null);
     function readSomething() {
         setIsListening(!isListenning);
         if (!isListenning) return;
-        window.setInterval(() => {
+        intervalRef.current = window.setInterval(() => {
             BluetoothSerial.readFromDevice()
                 .then((response) => {
                     console.log(response)
-                    if( response === ''){
+                    if (response === '') {
                         return;
                     }
                     if (response !== value) {
                         setValue(response);
+                        console.log(response)
                     }
                 })
         }, 1500)
+    }
+    function clearInterval() {
+        window.clearInterval(intervalRef.current);
     }
     return (
         <View
@@ -41,7 +40,7 @@ export const ListeningPage = () => {
             >
                 <ToggleButtonBluetooth
                     title={isListenning ? "..." : "ESCUCHAR"}
-                    onPress={readSomething}
+                    onPress={isListenning ? clearInterval : readSomething}
                     buttonStyle={isListenning ? [styles.toggleButton, { borderColor: "green" }] : styles.toggleButton}
                     textStyle={styles.toggleButtonText}
                 />

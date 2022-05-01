@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ModeloOSI</string>
+    <string name="app_name">OSI</string>
+    <string name="model">Modelo Osi</string>
 </resources>

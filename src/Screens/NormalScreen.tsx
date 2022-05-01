@@ -6,7 +6,6 @@ import { Header } from '../components/Header';
 
 
 export const NormalScreen = () => {
-    const navigator = useNavigation();
     return (
         <View
             style={styles.container}

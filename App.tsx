@@ -1,15 +1,19 @@
 import 'react-native-gesture-handler';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigation } from './src/Navigations/StackNavigation';
 import { Text, View, StyleSheet } from 'react-native';
 import { StatusContext } from './src/context/StatusContext';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [deviceConnected, setDeviceConnected] = useState(null);
-
+  useEffect(() => {
+    SplashScreen.hide();
+  }, [])
+  
   return (
     <NavigationContainer>
       <StatusContext.Provider

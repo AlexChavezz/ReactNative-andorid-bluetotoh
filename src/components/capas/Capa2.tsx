@@ -9,7 +9,7 @@ export const Capa2 = () => {
                     source={require("../../assets/data.webp")}
                     style={{ alignSelf: 'center', width: 250, height: 200 }}
                 />
-                <Text style={{ color: "black", textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>Capa de Internet</Text>
+                <Text style={{ color: "black", textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>Capa de Datos</Text>
                 <Text style={{ marginTop: 20, padding: 10, color: "black" }}>Esta capa define el formato de los datos transmitidos por la red.</Text>
             </View>
         </View>
