@@ -6,12 +6,6 @@
     android:orientation="vertical"
     android:gravity="center"
     >
-
-    <!--    <ImageView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:scaleType="centerCrop"-->
-    <!--        android:src="@drawable/launch_screen" />-->
     <FrameLayout
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -19,10 +13,12 @@
         android:layout_gravity="center"
         >
     </FrameLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/model"
         android:gravity="center"
-        />
+        android:text="@string/model"
+        android:textColor="#090505"
+        android:textStyle="bold" />
 </LinearLayout>
