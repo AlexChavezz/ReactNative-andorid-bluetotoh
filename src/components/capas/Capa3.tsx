@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-export const Capa3 = () => {
+interface Capa3Props {
+    withoutm?: boolean,
+}
+
+export const Capa3 = ({withoutm}:Capa3Props) => {
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: 70 }}>
+             <View style={withoutm?{  }:{ marginTop: 70 }}>
                 <Image
                     source={require("../../assets/network.png")}
                     style={{ alignSelf: 'center', width: 250, height: 200 }}

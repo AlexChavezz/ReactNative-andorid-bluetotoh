@@ -9,11 +9,11 @@ import { Header } from '../components/Header';
 export const ListeningPage = () => {
     const [isListenning, setIsListening] = useState(false);
     const [value, setValue] = useState<string>(null);
-    const intervalRef = useRef(null);
+    // const intervalRef = useRef(null);
     function readSomething() {
         setIsListening(!isListenning);
-        if (!isListenning) return;
-        intervalRef.current = window.setInterval(() => {
+        //if (!isListenning) return;
+        window.setInterval(() => {
             BluetoothSerial.readFromDevice()
                 .then((response) => {
                     console.log(response)
@@ -21,15 +21,15 @@ export const ListeningPage = () => {
                         return;
                     }
                     if (response !== value) {
-                        setValue(response);
+                        setValue(response[0]);
                         console.log(response)
                     }
                 })
         }, 1500)
     }
-    function clearInterval() {
-        window.clearInterval(intervalRef.current);
-    }
+    // function clearInterval() {
+    //     window.clearInterval(intervalRef.current);
+    // }
     return (
         <View
             style={styles.container}
@@ -40,7 +40,7 @@ export const ListeningPage = () => {
             >
                 <ToggleButtonBluetooth
                     title={isListenning ? "..." : "ESCUCHAR"}
-                    onPress={isListenning ? clearInterval : readSomething}
+                    onPress={readSomething}
                     buttonStyle={isListenning ? [styles.toggleButton, { borderColor: "green" }] : styles.toggleButton}
                     textStyle={styles.toggleButtonText}
                 />
@@ -52,25 +52,25 @@ export const ListeningPage = () => {
                     Here will go every content 
                 */}
                 {
-                    value === '1' && <Capa1 />
+                    value === '1' && <Capa1 withoutm/>
                 }
                 {
-                    value === '2' && <Capa2 />
+                    value === '2' && <Capa2 withoutm/>
                 }
                 {
-                    value === '3' && <Capa3 />
+                    value === '3' && <Capa3 withoutm/>
                 }
                 {
-                    value === '4' && <Capa4 />
+                    value === '4' && <Capa4 withoutm/>
                 }
                 {
-                    value === '5' && <Capa5 />
+                    value === '5' && <Capa5 withoutm/>
                 }
                 {
-                    value === '6' && <Capa6 />
+                    value === '6' && <Capa6 withoutm/>
                 }
                 {
-                    value === "7" && <Capa7 />
+                    value === "7" && <Capa7 withoutm/>
                 }
             </View>
         </View>

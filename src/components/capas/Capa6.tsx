@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-export const Capa6 = () => {
+interface Capa6Props {
+    withoutm?: boolean,
+}
+
+export const Capa6 = ({withoutm}:Capa6Props) => {
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: 70 }}>
+             <View style={withoutm?{  }:{ marginTop: 70 }}>
                 <Image
                     source={require("../../assets/png.png")}
                     style={{ alignSelf: 'center', width: 150, height: 200 }}

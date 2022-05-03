@@ -1,6 +1,7 @@
 import { Capa1, Capa2, Capa3, Capa4, Capa5, Capa6, Capa7 } from '../components/capas';
 import React from 'react';
 import { Header } from '../components/Header';
+import { ModeloOsi } from '../components/capas/ModeloOsi';
 export const InfoPage = ({ route }) => {
     const { arg } = route.params;
     if (arg === 1) {
@@ -60,5 +61,12 @@ export const InfoPage = ({ route }) => {
             </>
         );
 
+    }else if( arg === 0){
+        return (
+            <>
+            <Header />
+            <ModeloOsi />
+        </>
+        );
     }
 }

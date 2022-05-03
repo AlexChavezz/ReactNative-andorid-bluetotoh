@@ -6,6 +6,7 @@ import { Header } from '../components/Header';
 
 
 export const NormalScreen = () => {
+    const navigator = useNavigation();
     return (
         <View
             style={styles.container}
@@ -18,6 +19,9 @@ export const NormalScreen = () => {
                     <TouchableOpacity
                         style={[styles.card, { width: 260 }]}
                         activeOpacity={.7}
+                        onPress={()=>{
+                            navigator.navigate("InfoPage", { arg:0})
+                        }}
                     >
 
                         <Text
@@ -107,6 +111,7 @@ interface CardProps {
     title: string,
     arg: number,
     children?: ReactElement | ReactElement[],
+
 }
 
 const Card = ({ color, title, arg, children }: CardProps) => {

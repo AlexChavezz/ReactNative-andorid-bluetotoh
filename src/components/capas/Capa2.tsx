@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-
-export const Capa2 = () => {
+interface Capa2Props {
+    withoutm?: boolean,
+}
+export const Capa2 = ({ withoutm}:Capa2Props) => {
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: 70 }}>
+             <View style={withoutm?{  }:{ marginTop: 70 }}>
                 <Image
                     source={require("../../assets/data.webp")}
                     style={{ alignSelf: 'center', width: 250, height: 200 }}

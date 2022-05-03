@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-export const Capa4 = () => {
+interface Capa4Props {
+    withoutm?: boolean,
+}
+
+
+export const Capa4 = ({withoutm}:Capa4Props) => {
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: 70 }}>
+            <View style={withoutm?{  }:{ marginTop: 70 }}>
                 <Image
                     source={require("../../assets/trasnport.png")}
                     style={{ alignSelf: 'center', width: 150, height: 200 }}
