@@ -7,7 +7,6 @@ import { DeviceList } from '../components/DeviceList';
 import { bluetoothStyles as styles } from '../styles/styles';
 import { LogBox } from 'react-native';
 import { StatusContext } from '../context/StatusContext';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { Header } from '../components/Header';
 

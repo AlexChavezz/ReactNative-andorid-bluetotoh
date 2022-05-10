@@ -24,14 +24,14 @@ export const InitialScreen = () => {
                 </Text>
                 <Text>Modelo OSI</Text>
             </View>
-            <View>
-                <Button title="NORMAL" onPress={goToNormalWay} />
+            <View style={{ marginVertical: 50, justifyContent:"space-around", height: 200 }}>
+                <Button title="TEÓRICO" onPress={goToNormalWay} />
                 <Text
                     style={styles.orText}
                 >
                     o
                 </Text>
-                <Button title="BLUETOOTH" onPress={goToBluetoothWay}/>
+                <Button title="PRÁCTICO" onPress={goToBluetoothWay} />
             </View>
         </View>
     );
