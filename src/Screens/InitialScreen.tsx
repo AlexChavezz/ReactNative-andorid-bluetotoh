@@ -8,7 +8,7 @@ export const InitialScreen = () => {
         navigator.navigate("NormalScreen");
     }
     function goToBluetoothWay() {
-        navigator.navigate("BluetothScreen");
+        navigator.navigate("BluetoothScreen");
     }
     return (
         <View

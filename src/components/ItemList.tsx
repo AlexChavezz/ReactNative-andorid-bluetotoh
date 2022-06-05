@@ -7,7 +7,6 @@ import { StatusContext } from '../context/StatusContext';
 
 export const Item = (props) => {
     console.log(props)
-    // const { name, address, id } = pro;
     const { setIsConnected, setDeviceConnected } = useContext(StatusContext);
     const navigator = useNavigation();
     async function connectTo() {

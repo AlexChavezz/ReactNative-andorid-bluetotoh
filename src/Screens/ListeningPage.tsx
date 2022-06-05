@@ -32,7 +32,7 @@ export const ListeningPage = () => {
     // }
     return (
         <View
-            style={styles.container}
+            // style={styles.container}
         >
             <Header />
             <View

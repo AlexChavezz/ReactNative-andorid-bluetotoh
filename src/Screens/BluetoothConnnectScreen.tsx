@@ -1,32 +1,29 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Image, Text } from 'react-native';
+import React, { useEffect, useContext, useState } from 'react';
+import { View, Text } from 'react-native';
+import { Header } from '../components/Header';
 import { ToggleButtonBluetooth } from '../components/ToggleButtonBluetooth';
-import BluetoothSerial from 'react-native-bluetooth-serial-next';
 import { useDevices } from '../hooks/useDevices';
+import { StatusContext } from '../context/StatusContext';
+import BluetoothSerial from 'react-native-bluetooth-serial-next';
 import { DeviceList } from '../components/DeviceList';
 import { bluetoothStyles as styles } from '../styles/styles';
-import { LogBox } from 'react-native';
-import { StatusContext } from '../context/StatusContext';
 import { useNavigation } from '@react-navigation/native';
-import { Header } from '../components/Header';
+import { RotationGestureHandler } from 'react-native-gesture-handler';
 
-// -> This ignore problem react-native-gesture-handler 
-LogBox.ignoreLogs([
-    "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
-]);
-
-export const BluetothScreen = () => {
+export const BluetoothConnnectScreen = () => {
     const [isBluetoothEnable, setIsBluetoothEnable] = useState(false);
     const { isConnected, setIsConnected } = useContext(StatusContext);
     const [pairedDevices, getDevices, clearPairedDevices] = useDevices();
     const navigator = useNavigation();
-
     useEffect(() => {
-        BluetoothSerial.isEnabled()
-            .then(res => {
-                setIsBluetoothEnable(res);
-                getDevices();
-            });
+        if (isConnected) {
+            navigator.navigate("ListeningPage");
+        }
+            BluetoothSerial.isEnabled()
+                .then(res => {
+                    setIsBluetoothEnable(res);
+                    getDevices();
+                });
     }, [])
 
     async function activeBluetoothRequest() {
@@ -44,14 +41,11 @@ export const BluetothScreen = () => {
         if (response) setIsBluetoothEnable(false); clearPairedDevices();
         setIsConnected(false);
     }
-    // async function getDevicesNew() {
-    //     const devices = await BluetoothSerial.discoverUnpairedDevices();
-    //     console.log(devices)
-    // }
     // function isConected() {
     //     BluetoothSerial.isConnected()
     //         .then((res) => { if (res) setIsConnected(res) })
     // }
+
     // function writeSomething(letter: string) {
     //     BluetoothSerial.write(letter).then(console.log).catch(e => console.log("error"))
     // }
@@ -75,16 +69,6 @@ export const BluetothScreen = () => {
                 pairedDevices={pairedDevices}
                 isBluetoothEnable={isBluetoothEnable}
             />
-
-            <View
-                style={isConnected ? [styles.footer, styles.sucessAlert] : [styles.footer, styles.deniedAlert]}
-            >
-                <Text
-                    style={isConnected ? styles.successAlertText : styles.deniedAlertText}
-                >
-                    {isConnected ? "Conectado" : "Desconectado"}
-                </Text>
-            </View>
         </View>
     );
 }
